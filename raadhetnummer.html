@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raad het Nummer Spel</title>
+<link rel="stylesheet" href="raad_het_nummer.css">
+<script src="raad_het_nummer.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Raad het Nummer!</h1>
+        <p>Raad een nummer tussen 1 en 100:</p>
+        <input type="number" id="guessInput" min="1" max="100" />
+        <button onclick="checkGuess()">Gok!</button>
+        <button onclick="resetGame()">Opnieuw Spelen</button>
+        
+        <div class="feedback">
+            <p id="feedbackMessage"></p>
+            <p>Aantal pogingen: <span id="attempts">0</span></p>
+        </div>
+    </div>
+<script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+let attempts = 0;
+
+function checkGuess() {
+    const userGuess = parseInt(document.getElementById('guessInput').value);
+    if (isNaN(userGuess))
+     {
+        document.getElementById('feedbackMessage').innerText = 'Vul alstublieft een nummer in!';
+        return;
+     }
+    attempts++;
+    document.getElementById('attempts').innerText = attempts;
+
+    let feedbackMessage = '';
+
+    if (userGuess > randomNumber) {
+        feedbackMessage = 'Te hoog!';
+    } else if (userGuess < randomNumber) {
+        feedbackMessage = 'Te laag!';
+    } else {
+        feedbackMessage = 'Gefeliciteerd! Je hebt het juiste nummer geraden!';
+    }
+
+    document.getElementById('feedbackMessage').innerText = feedbackMessage;
+}
+
+function resetGame() {
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
+    document.getElementById('attempts').innerText = attempts;
+    document.getElementById('feedbackMessage').innerText = '';
+    document.getElementById('guessInput').value = '';
+}
+</script>
+</body>
+</html>
